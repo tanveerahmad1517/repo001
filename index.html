@@ -1,0 +1,28 @@
+<form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <button type="button" onclick="saveFormData()">Save Data</button>
+</form>
+
+<script>
+    function saveFormData() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+
+        // Send form data to the server
+        fetch('/saveFormData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email })
+        })
+        .then(response => response.text())
+        .then(message => console.log(message))
+        .catch(error => console.error(error));
+    }
+</script>
